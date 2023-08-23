@@ -16,6 +16,11 @@ public class EventProducer {
             } else if (eventNumber >= 80 && eventNumber <= 100) {
                 hunterAttack(tiger);
             }
+            try {
+                Thread.sleep(1500);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
         System.out.println("Ооо нет! Тигр умер! The end!");
     }
