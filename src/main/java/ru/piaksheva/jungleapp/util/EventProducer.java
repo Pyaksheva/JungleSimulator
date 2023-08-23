@@ -34,9 +34,7 @@ public class EventProducer {
     private void moveEvent(Tiger tiger) {
         int energy = tiger.getEnergy();
         energy = energy - 10;
-        if (energy < 0) {
-            energy = 0;
-        }
+        energy = normalizeEnergy(energy);
         System.out.println("Тигр побегал! " + " - " + (tiger.getEnergy() - energy) + " энергии. Текущая энергия: " + energy);
         tiger.setEnergy(energy);
         checkEnergy(tiger);
@@ -46,13 +44,9 @@ public class EventProducer {
         int energy = tiger.getEnergy();
         int health = tiger.getHealth();
         energy = energy - 15;
-        if (energy < 0) {
-            energy = 0;
-        }
+        energy = normalizeEnergy(energy);
         health = health + (int) (tiger.getPreySizeRate() * 4);
-        if (health > 100) {
-            health = 100;
-        }
+        health = normalizeHealth(health);
         tiger.setEnergy(energy);
         tiger.setHealth(health);
         checkEnergy(tiger);
@@ -62,16 +56,14 @@ public class EventProducer {
     private void hunterAttack(Tiger tiger) {
         int health = tiger.getHealth();
         health = health - 30;
-        if (health < 0) {
-            health = 0;
-        }
+        health = normalizeHealth(health);
         tiger.setHealth(health);
         checkEnergy(tiger);
         System.out.println("На тигра напал браконьер! Текущее здоровье: " + tiger.getHealth());
     }
 
     private boolean checkStatus(Tiger tiger) {
-        System.out.println("hp: " + tiger.getHealth() + "energy: " + tiger.getEnergy());
+        System.out.println("hp: " + tiger.getHealth() + " energy: " + tiger.getEnergy());
         if (tiger.getHealth() <= 0) {
             return false;
         } else {
@@ -83,10 +75,28 @@ public class EventProducer {
         if (tiger.getEnergy() <= 0) {
             int health = tiger.getHealth();
             health = health - 5;
-            if (health < 0) {
-                health = 0;
-            }
+            health = normalizeHealth(health);
             tiger.setHealth(health);
+        }
+    }
+
+    public int normalizeEnergy(int energy) {
+        if (energy > 100) {
+            return 100;
+        } else if (energy < 0) {
+            return 0;
+        } else {
+            return energy;
+        }
+    }
+
+    public int normalizeHealth(int health) {
+        if (health > 100) {
+            return 100;
+        } else if (health < 0) {
+            return 0;
+        } else {
+            return health;
         }
     }
 }
