@@ -164,22 +164,10 @@ public class EventProducer {
     }
 
     public int normalizeEnergy(int energy) {
-        if (energy > 100) {
-            return 100;
-        } else if (energy < 0) {
-            return 0;
-        } else {
-            return energy;
-        }
+        return Math.max(0, Math.min(energy, 100));
     }
 
     public int normalizeHealth(int health) {
-        if (health > 100) {
-            return 100;
-        } else if (health < 0) {
-            return 0;
-        } else {
-            return health;
-        }
+        return Math.min(100, Math.max(0, health));
     }
 }
