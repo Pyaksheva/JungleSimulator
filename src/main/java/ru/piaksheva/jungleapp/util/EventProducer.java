@@ -151,11 +151,7 @@ public class EventProducer {
 
     private boolean checkStatus(Tiger tiger) {
         System.out.println("hp: " + tiger.getHealth() + " energy: " + tiger.getEnergy());
-        if (tiger.getHealth() <= 0) {
-            return false;
-        } else {
-            return true;
-        }
+        return tiger.getHealth() > 0;
     }
 
     private void checkEnergy(Tiger tiger) {
